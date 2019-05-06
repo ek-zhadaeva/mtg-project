@@ -1,1 +1,7 @@
-# Created by .ignore support plugin (hsz.mobi)
+*.class
+*.war
+
+.idea
+*.iml
+out
+target
