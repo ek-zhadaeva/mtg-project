@@ -22,12 +22,12 @@ public class ServletMain extends HttpServlet {
             Statement statement = bdWorker.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
-            while (resultSet.next()){
+            while (resultSet.next()) {
 
                 String loginInBD = resultSet.getString("login");
                 String passwordInBD = resultSet.getString("password");
 
-                if(login.equals(loginInBD) && password.equals(passwordInBD)){
+                if (login.equals(loginInBD) && password.equals(passwordInBD)) {
                     req.getRequestDispatcher("info.jsp").forward(req, resp);
                     break;
                 }

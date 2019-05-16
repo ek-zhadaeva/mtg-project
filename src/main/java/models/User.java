@@ -1,4 +1,6 @@
-public class Users {
+package models;
+
+public class User {
 
     private int id;
     private String userName;
@@ -7,16 +9,16 @@ public class Users {
     private String password;
     private String address;
 
-    public Users(){
+    public User(){
 
     }
 
-    public Users(String login, String password){
+    public User(String login, String password){
        this.login = login;
        this.password = password;
     }
 
-    public Users(int id, String userName, String login, String password, String address) {
+    public User(int id, String userName, String login, String password, String address) {
         this.id = id;
         this.userName = userName;
         this.login = login;
@@ -24,7 +26,7 @@ public class Users {
         this.address = address;
     }
 
-    public Users(int id, String userName, String userLastName, String login, String password, String address) {
+    public User(int id, String userName, String userLastName, String login, String password, String address) {
         this.id = id;
         this.userName = userName;
         this.userLastName = userLastName;
