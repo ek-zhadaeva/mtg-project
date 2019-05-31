@@ -11,6 +11,31 @@
     <title>Title</title>
 </head>
 <body>
-hello!
+
+<form action="${pageContext.request.contextPath}/info" method="post">
+
+    <table>
+
+        <tr>
+            Добро пожаловать!
+
+        </tr>
+
+        <tr>
+            Здесь Вы можете обмениватиься mtg-картами
+        </tr>
+
+        <tr>
+
+            <td colspan="3" style="text-align: center"><input type="submit" name="catalog" value="Посмотреть каталог"></td>
+            <td colspan="3" style="text-align: center"><input type="submit" name="shop" value="Купить карты"></td>
+
+
+        </tr>
+
+    </table>
+
+</form>
+
 </body>
 </html>

@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-@WebServlet(name = "ServletMain", urlPatterns = "/authorization")
-public class ServletMain extends HttpServlet {
+@WebServlet(name = "ServletSignIn", urlPatterns = "/signIn")
+public class ServletSignIn extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -43,6 +43,7 @@ public class ServletMain extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendRedirect("authorization.jsp");
+        resp.sendRedirect("signIn.jsp");
+
     }
 }

@@ -16,7 +16,7 @@
 
 <h2>Введите логин и пароль:</h2>
 
-<form action="${pageContext.request.contextPath}/authorization" method="post">
+<form action="${pageContext.request.contextPath}/signIn" method="post">
     <table>
         <tr>
             <td><label for="login">Логин:</label></td>
@@ -28,10 +28,21 @@
             <td><input type="password" name="password" id="password" value="${password}"></td>
         </tr>
 
-        <td colspan="3" style="text-align: center"><input type="submit" name="signup" value="Войти"></td>
+        <tr>
+            <td colspan="3" style="text-align: center"><input type="submit" name="signIn" value="Войти"></td>
+        </tr>
+
     </table>
 
 </form>
+
+<table>
+    <tr>
+        <td colspan="3" style="text-align: center">
+            <a href="signUp.jsp"><input type="button" value="Зарегистрироваться"></a>
+        </td>
+    </tr>
+</table>
 
 </body>
 </html>
