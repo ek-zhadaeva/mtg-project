@@ -1,13 +1,29 @@
 package models;
 
+
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+@Table (name = "user")
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column (name = "name")
     private String userName;
+    @Column (name = "last_name")
     private String userLastName;
     private String login;
     private String password;
     private String address;
+
+    @ManyToMany (cascade = CascadeType.ALL)
+    @JoinTable(name = "sale",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "card_id"))
+    private List<Card> cardList;
 
     public User(){
 
@@ -18,30 +34,32 @@ public class User {
        this.password = password;
     }
 
-    public User(int id, String userName, String login, String password, String address) {
+    public User(int id, String userName, String login, String password, String address, List<Card> cardList) {
         this.id = id;
         this.userName = userName;
         this.login = login;
         this.password = password;
         this.address = address;
+        this.cardList = cardList;
     }
 
-    public User(int id, String userName, String userLastName, String login, String password, String address) {
+    public User(int id, String userName, String userLastName, String login, String password, String address, List<Card> cardList) {
         this.id = id;
         this.userName = userName;
         this.userLastName = userLastName;
         this.login = login;
         this.password = password;
         this.address = address;
+        this.cardList = cardList;
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+//    public void setId(int id) {
+//        this.id = id;
+//    }
 
     public String getUserName() {
         return userName;
@@ -83,4 +101,11 @@ public class User {
         this.address = address;
     }
 
+    public List<Card> getCardList() {
+        return cardList;
+    }
+
+    public void setCardList(List<Card> cardList) {
+        this.cardList = cardList;
+    }
 }
