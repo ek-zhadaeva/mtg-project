@@ -16,8 +16,12 @@
 
 <h2>Введите логин и пароль:</h2>
 
+<h1>${requestScope.error}</h1>
+
+
 <form action="${pageContext.request.contextPath}/signIn" method="post">
     <table>
+
         <tr>
             <td><label for="login">Логин:</label></td>
             <td><input type="text" name="login" id="login" value="${login}"></td>

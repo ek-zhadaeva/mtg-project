@@ -8,16 +8,30 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Home</title>
 </head>
 <body>
 
-<form action="${pageContext.request.contextPath}/info" method="post">
+<table>
+    <tr>
+        <td colspan="3" style="text-align: center">
+            <a href="logout"><input type="button" value="Выйти"></a>
+        </td>
+    </tr>
+
+</table>
+
+<form action="${pageContext.request.contextPath}/home" method="post">
 
     <table>
+        ${requestScope.hello}
+        ${requestScope.error}
 
         <tr>
-            Добро пожаловать!
+
+
+
+                Добро пожаловать!
 
         </tr>
 

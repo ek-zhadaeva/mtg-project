@@ -34,6 +34,14 @@ public class User {
        this.password = password;
     }
 
+    public User(String userName, String userLastName, String login, String password, String address) {
+        this.userName = userName;
+        this.userLastName = userLastName;
+        this.login = login;
+        this.password = password;
+        this.address = address;
+    }
+
     public User(int id, String userName, String login, String password, String address, List<Card> cardList) {
         this.id = id;
         this.userName = userName;

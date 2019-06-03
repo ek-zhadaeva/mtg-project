@@ -3,7 +3,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
@@ -15,6 +17,8 @@ public class ServletSignIn extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
 
+        int passwordHash = password.hashCode();
+
         BDWorker bdWorker = new BDWorker();
         String query = "select login, password from user";
 
@@ -22,17 +26,26 @@ public class ServletSignIn extends HttpServlet {
             Statement statement = bdWorker.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
+
+
             while (resultSet.next()) {
 
                 String loginInBD = resultSet.getString("login");
-                String passwordInBD = resultSet.getString("password");
+                int passwordInBD = resultSet.getInt("password");
 
-                if (login.equals(loginInBD) && password.equals(passwordInBD)) {
-                    req.getRequestDispatcher("info.jsp").forward(req, resp);
-                    break;
+                if (login.equals(loginInBD) && passwordHash == passwordInBD) {
+                    HttpSession session = req.getSession();
+                    session.setAttribute("login", login);
+                    req.getRequestDispatcher("home.jsp").forward(req, resp);
+                    return;
                 }
 
             }
+
+
+            req.setAttribute("error", "Неверный пароль!");
+
+            req.getRequestDispatcher("signIn.jsp").forward(req, resp);
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -60,4 +60,12 @@ public class Card {
     public void setRarity(String rarity) {
         this.rarity = rarity;
     }
+
+    public List<User> getUserList(){
+        return userList;
+    }
+
+    public void setUserList(List<User> userList){
+        this.userList = userList;
+    }
 }

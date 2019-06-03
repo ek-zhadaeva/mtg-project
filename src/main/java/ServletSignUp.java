@@ -1,3 +1,6 @@
+import dao.UserService;
+import models.User;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,43 +17,83 @@ public class ServletSignUp extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+//        UserService userService = new UserService();
+
         String nameAdd = req.getParameter("name");
         String lastNameAdd = req.getParameter("last_name");
         String cityAdd = req.getParameter("city");
         String loginAdd = req.getParameter("login");
         String passwordAdd = req.getParameter("password");
+        String passwordAdd2 = req.getParameter("password2");
+
 
         BDWorker bdWorker = new BDWorker();
-        String query = "INSERT into user(name, last_name, login, password, address) VALUES (?, ?, ?, ?, ?)";
+        String query1 = "INSERT into user(name, last_name, login, password, address) VALUES (?, ?, ?, ?, ?)";
+        String query2 = "select login from user";
 
-      //  Statement statement = null;
+
+
         try {
-         //   statement = bdWorker.getConnection().createStatement();
-         //   statement.executeUpdate(query);
+            Statement statement = bdWorker.getConnection().createStatement();
+            ResultSet resultSet = statement.executeQuery(query2);
+
+            while (resultSet.next()){
+                String loginInBD = resultSet.getString("login");
+
+
+                if(nameAdd != "" & lastNameAdd != "" & cityAdd != "" & loginAdd != "" & passwordAdd != ""){
+
+                    if(loginAdd.equals(loginInBD)){
+
+                        req.setAttribute("error1", "Пользователь с таким логином уже существует!");
+
+                        req.getRequestDispatcher("signUp.jsp").forward(req, resp);
+                        return;
+                    }
+
+                }else {
+                    req.setAttribute("error2", "Вы заполнили не все поля!");
+
+                    req.getRequestDispatcher("signUp.jsp").forward(req, resp);
+                    return;
+                }
+
+
+            }
+
+            int passwordHash = passwordAdd.hashCode();
+            int passwordHash2 = passwordAdd2.hashCode();
+
+            if(passwordHash != passwordHash2){
+                req.setAttribute("error3", "Неверный пароль!");
+
+                req.getRequestDispatcher("signUp.jsp").forward(req, resp);
+                return;
+            }
+
+
+            PreparedStatement preparedStmt = bdWorker.getConnection().prepareStatement(query1);
 
 
 
-            PreparedStatement preparedStmt = bdWorker.getConnection().prepareStatement(query);
 
             preparedStmt.setString (1, nameAdd);
             preparedStmt.setString (2, lastNameAdd);
             preparedStmt.setString (3, loginAdd);
-            preparedStmt.setString (4, passwordAdd);
+            preparedStmt.setInt (4, passwordHash);
             preparedStmt.setString (5, cityAdd);
 
             preparedStmt.execute();
 
-           if(nameAdd != null && lastNameAdd != null && cityAdd != null && loginAdd != null && passwordAdd != null){
-               resp.sendRedirect("signIn.jsp");
-//                req.getRequestDispatcher("info.jsp").forward(req, resp);
+            resp.sendRedirect("signIn.jsp");
 
-           }
-
+//               User user = new User(nameAdd, lastNameAdd, loginAdd, passwordAdd, cityAdd);
+//               userService.saveUser(user);
 
 
 
-
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.err.println("Got an exception!");
             e.printStackTrace();
         }
